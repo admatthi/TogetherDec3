@@ -494,15 +494,17 @@ class WatchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        titlelabel.sizeToFit()
         titlelabel.text = selectedtitle
+//        titlelabel.sizeToFit()
+
         datelabel.text = selecteddate
         textviewdics.removeAll()
         showcounter()
         vids.removeAll()
         lilimage.setBackgroundImage(myselectedimage, for: .normal)
-        name.text = selectedname
-        name.sizeToFit()
+        name.text = selectedname.uppercased()
+        name.addCharacterSpacing()
+//        name.sizeToFit()
         
         lilimage.layer.masksToBounds = false
         lilimage.layer.cornerRadius = lilimage.frame.height/2

@@ -582,8 +582,6 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
             taptermsbs.alpha = 0
             dahkness.alpha = 0
             
-            
-            
         }
                 
             return cell

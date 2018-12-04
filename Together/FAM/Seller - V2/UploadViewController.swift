@@ -555,7 +555,7 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
     
         self.activityIndicator.alpha = 0
         self.loadinglabel.alpha = 0
-        tv3.text = "Write Your Description"
+        tv3.text = "Write a caption..."
         tv3.textColor = mygray
 //        subtitle.text = "Subtitle..."
 //        subtitle.textColor = .white

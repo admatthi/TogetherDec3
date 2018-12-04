@@ -84,6 +84,20 @@ class EditProfileViewController: UIViewController, UITableViewDelegate, UITableV
         refreshControl.tintColor  = mypink
         tableView.addSubview(refreshControl)
         
+        activityIndicator.alpha = 1
+        activityIndicator.color = mypink
+        activityIndicator.startAnimating()
+        //
+        lilthumbnail.layer.masksToBounds = false
+        lilthumbnail.layer.cornerRadius = lilthumbnail.frame.height/2
+        lilthumbnail.clipsToBounds = true
+        
+        queryforids { () -> () in
+            
+            self.queryforinfo()
+            
+        }
+        //
         
         // Do any additional setup after loading the view.
     }
@@ -116,7 +130,6 @@ class EditProfileViewController: UIViewController, UITableViewDelegate, UITableV
     
     override func viewDidAppear(_ animated: Bool) {
         
-        ref = Database.database().reference()
 
 //        if thumbnails.count ==  1 {
 //
@@ -134,20 +147,7 @@ class EditProfileViewController: UIViewController, UITableViewDelegate, UITableV
 //            }
         
 //            tableView.alpha = 0
-            activityIndicator.alpha = 1
-            activityIndicator.color = mypink
-            activityIndicator.startAnimating()
-//
-        lilthumbnail.layer.masksToBounds = false
-        lilthumbnail.layer.cornerRadius = lilthumbnail.frame.height/2
-        lilthumbnail.clipsToBounds = true
-        
-            queryforids { () -> () in
-                
-                self.queryforinfo()
-                
-            }
-//
+    
 //        }
         
       
@@ -475,6 +475,9 @@ class EditProfileViewController: UIViewController, UITableViewDelegate, UITableV
             cell.timeago.text = videodates[videoids[indexPath.row]]
             cell.timeago.text = videodates[videoids[indexPath.row]]?.uppercased()
             cell.timeago.addCharacterSpacing()
+            cell.name.text = selectedname.uppercased()
+            cell.name.addCharacterSpacing()
+            cell.profilepic.image = myselectedimage
             
             //            cell.titlelabel.sizeToFit()
             //            cell.timeago.text = "\(videodaytitles[videoids[indexPath.row]]!)"
@@ -488,7 +491,8 @@ class EditProfileViewController: UIViewController, UITableViewDelegate, UITableV
             
         }
         
-    
+        cell.lockimage.image = UIImage(named: "Play")
+
         
         return cell
         
