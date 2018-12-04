@@ -42,10 +42,10 @@ class PlansTableViewCell: UITableViewCell {
 //        tapjoin.layer.cornerRadius = 15.0
 //        tapjoin.layer.masksToBounds = true
 //        
-//                profilepic.layer.masksToBounds = false
-//                profilepic.layer.cornerRadius = profilepic.frame.height/2
-//                profilepic.clipsToBounds = true
-//        
+                profilepic.layer.masksToBounds = false
+                profilepic.layer.cornerRadius = profilepic.frame.height/2
+                profilepic.clipsToBounds = true
+        
 //        minipic.layer.masksToBounds = false
 //        minipic.layer.cornerRadius = minipic.frame.height/2
 //        minipic.clipsToBounds = true

@@ -197,6 +197,14 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 taptermsbs.alpha = 0
                 dahkness.alpha = 0
        
+            } else {
+                
+                locked = true
+                tapbuy.alpha = 1
+                tapterms.alpha = 1
+                taptermsbs.alpha = 1
+                dahkness.alpha = 1
+                
             }
             
 //            queryforpurchased()
@@ -243,6 +251,7 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tableView.alpha = 0
         errorlabel.alpha = 1
         activityIndicator.alpha = 0
+        show()
         var functioncounter = 0
         
         
@@ -544,7 +553,9 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
             cell.timeago.text = videodates[videoids[indexPath.row]]
             cell.timeago.text = videodates[videoids[indexPath.row]]?.uppercased()
             cell.timeago.addCharacterSpacing()
-            
+            cell.name.text = selectedname
+            cell.name.addCharacterSpacing()
+            cell.profilepic.image = myselectedimage
 //            cell.titlelabel.sizeToFit()
 //            cell.timeago.text = "\(videodaytitles[videoids[indexPath.row]]!)"
 
@@ -561,12 +572,12 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             cell.lockimage.alpha = 1
             cell.lockimage.image = UIImage(named: "Lock")
-
+            
         } else {
             
             
             cell.lockimage.image = UIImage(named: "Play")
-
+            
         }
                 
             return cell
