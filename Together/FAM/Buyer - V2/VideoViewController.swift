@@ -308,13 +308,14 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
             if var profileUrl2 = value?["ProPic"] as? String {
                 // Create a storage reference from the URL
                 
+                var sup = ""
                 
                 if profileUrl2 == "" {
                     
                     self.lilthumbnail.alpha = 0
                     
                 } else {
-                                        
+                    
                     let url = URL(string: profileUrl2)
                     let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
                     selectedimage = UIImage(data: data!)!
