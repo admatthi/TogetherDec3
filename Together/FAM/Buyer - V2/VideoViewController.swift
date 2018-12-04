@@ -577,6 +577,12 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             
             cell.lockimage.image = UIImage(named: "Play")
+            tapbuy.alpha = 0
+            tapterms.alpha = 0
+            taptermsbs.alpha = 0
+            dahkness.alpha = 0
+            
+            
             
         }
                 
