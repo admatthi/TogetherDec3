@@ -27,6 +27,8 @@ class PlansTableViewCell: UITableViewCell {
     @IBOutlet weak var minipic: UIImageView!
     @IBOutlet weak var playerView: PlayerViewClass!
 
+    @IBOutlet weak var bigpic: UIImageView!
+    @IBOutlet weak var postslabel: UILabel!
     @IBOutlet weak var timeago: UILabel!
     @IBOutlet weak var titlelabel: UILabel!
     @IBOutlet weak var tapaddstory: UIButton!
@@ -45,6 +47,10 @@ class PlansTableViewCell: UITableViewCell {
         profilepic.layer.masksToBounds = false
                 profilepic.layer.cornerRadius = profilepic.frame.height/2
                 profilepic.clipsToBounds = true
+        
+        bigpic.layer.masksToBounds = false
+        bigpic.layer.cornerRadius = bigpic.frame.height/2
+        bigpic.clipsToBounds = true
         
 //        minipic.layer.masksToBounds = false
 //        minipic.layer.cornerRadius = minipic.frame.height/2

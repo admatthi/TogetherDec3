@@ -113,9 +113,11 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
 //        tapsubscribe.layer.masksToBounds = true
 //        tapsubscribe.layer.cornerRadius = 5.0
+//
+//        subscriblabel.addCharacterSpacing()
+//        postlabel.addCharacterSpacing()
         
-        subscriblabel.addCharacterSpacing()
-        postlabel.addCharacterSpacing()
+        
         lowercasename = selectedname
 
         tapbuy.backgroundColor = UIColor(red:1.00, green:1.00, blue:1.00, alpha:0.25)
@@ -160,11 +162,7 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
         programname.addCharacterSpacing()
         programname.sizeToFit()
         
-        lilthumbnail.layer.masksToBounds = false
-        lilthumbnail.layer.cornerRadius = lilthumbnail.frame.height/2
-        lilthumbnail.clipsToBounds = true
-        
-        lilthumbnail.image = myselectedimage
+
         //        tableView.rowHeight = UITableViewAutomaticDimension
         
         //        cta.text = "Join \(firstname)'s FAM"
@@ -225,11 +223,7 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tapbuy.alpha = 0
         tapterms.alpha = 0
         taptermsbs.alpha = 0
-        lilthumbnail.alpha = 0
-        subscriblabel.alpha = 0
-        posts.alpha = 0
-        postlabel.alpha = 0
-        subscribers.alpha = 0
+   
     }
     
     func show() {
@@ -237,11 +231,7 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
         tapbuy.alpha = 1
         tapterms.alpha = 1
         taptermsbs.alpha = 1
-        lilthumbnail.alpha = 1
-        subscriblabel.alpha = 1
-        posts.alpha = 1
-        postlabel.alpha = 1
-        subscribers.alpha = 1
+
     }
     
   
@@ -287,7 +277,7 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
                         videoids = videoids.sorted()
                         videoids = videoids.reversed()
                         
-                        self.posts.text = "\(videoids.count)"
+//                        self.posts.text = "\(videoids.count)"
                         completed()
                         
                     }
@@ -332,7 +322,6 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
                     let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
                     selectedimage = UIImage(data: data!)!
                     
-                    self.lilthumbnail.image = selectedimage
                     
                 }
                 
@@ -356,8 +345,16 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
             if var author2 = value?["Subscribers"] as? String {
                 
                 selectedsubs = author2
-                self.subscribers.text = "\(author2)"
                 
+            }
+            
+            if var author2 = value?["Pitch"] as? String {
+                
+                selectedpitch = author2
+                
+            } else {
+                
+                selectedpitch = "This is where I'll be posting all my meal plans and workouts days before Instagram!"
             }
             
         })
@@ -546,6 +543,37 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         if thumbnails.count > indexPath.row{
             
+            
+            if indexPath.row == 0 {
+                
+                cell.bigpic.alpha = 1
+                cell.postslabel.alpha = 1
+                cell.sublabel.alpha = 1
+                cell.pitch.alpha = 1
+                
+                cell.thumbnail.alpha = 0
+                
+                cell.titlelabel.alpha = 0
+                cell.timeago.alpha = 0
+                cell.name.alpha = 0
+                cell.lockimage.alpha = 0
+                cell.profilepic.alpha = 0
+                
+            } else {
+                
+                cell.bigpic.alpha = 0
+                cell.postslabel.alpha = 0
+                cell.sublabel.alpha = 0
+                cell.pitch.alpha = 0
+                cell.lockimage.alpha = 0
+                cell.profilepic.alpha = 1
+                cell.thumbnail.alpha = 1
+                
+                cell.titlelabel.alpha = 1
+                cell.timeago.alpha = 1
+                cell.name.alpha = 1
+            }
+            
             tableView.alpha = 1
             errorlabel.alpha = 0
             activityIndicator.alpha = 0
@@ -559,6 +587,11 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
             cell.name.text = selectedname
             cell.name.addCharacterSpacing()
             cell.profilepic.image = selectedimage
+            cell.bigpic.image = selectedimage
+            cell.postslabel.text = String(videoids.count)
+            cell.sublabel.text = selectedsubs
+            cell.pitch.text = selectedpitch
+            
 //            cell.titlelabel.sizeToFit()
 //            cell.timeago.text = "\(videodaytitles[videoids[indexPath.row]]!)"
 
@@ -573,8 +606,16 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
         if locked {
             
-            cell.lockimage.alpha = 1
-            cell.lockimage.image = UIImage(named: "Lock")
+            if indexPath.row == 0 {
+                
+                cell.lockimage.alpha = 0
+
+            } else {
+                
+                cell.lockimage.alpha = 1
+                cell.lockimage.image = UIImage(named: "Lock")
+            }
+          
             
         } else {
             
@@ -599,6 +640,17 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
         
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if indexPath.row == 0 {
+            
+            return 200
+            
+        } else {
+            
+            return UITableViewAutomaticDimension
+        }
+    }
     var buttonspressedup = [String:String]()
     
     @objc func tapJoin(sender: UIButton){
