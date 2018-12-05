@@ -49,11 +49,7 @@ class PlansTableViewCell: UITableViewCell {
         profilepic.layer.masksToBounds = false
                 profilepic.layer.cornerRadius = profilepic.frame.height/2
                 profilepic.clipsToBounds = true
-        
-        bigpic.layer.masksToBounds = false
-        bigpic.layer.cornerRadius = bigpic.frame.height/2
-        bigpic.clipsToBounds = true
-        
+     
 //        minipic.layer.masksToBounds = false
 //        minipic.layer.cornerRadius = minipic.frame.height/2
 //        minipic.clipsToBounds = true

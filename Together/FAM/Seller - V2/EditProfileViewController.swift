@@ -496,6 +496,9 @@ class EditProfileViewController: UIViewController, UITableViewDelegate, UITableV
         
         //        cell.subscriber.tag = indexPath.row
         
+        cell.bigpic.layer.masksToBounds = false
+        cell.bigpic.layer.cornerRadius = cell.bigpic.frame.height/2
+        cell.bigpic.clipsToBounds = true
         cell.layer.cornerRadius = 10.0
         cell.layer.masksToBounds = true
         cell.thumbnail.layer.cornerRadius = 10.0
