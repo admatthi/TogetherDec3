@@ -34,8 +34,7 @@ class EditProfileViewController: UIViewController, UITableViewDelegate, UITableV
         lowercasename = selectedname
         selectedid = uid
 
-        subslabel.addCharacterSpacing()
-        postslabel.addCharacterSpacing()
+  
         let date = Date()
         let dateFormatter = DateFormatter()
         dateFormatter.timeZone = TimeZone(abbreviation: "GMT") //Set timezone that you want
@@ -88,9 +87,7 @@ class EditProfileViewController: UIViewController, UITableViewDelegate, UITableV
         activityIndicator.color = mypink
         activityIndicator.startAnimating()
         //
-        lilthumbnail.layer.masksToBounds = false
-        lilthumbnail.layer.cornerRadius = lilthumbnail.frame.height/2
-        lilthumbnail.clipsToBounds = true
+     
         
         queryforids { () -> () in
             
@@ -171,7 +168,7 @@ class EditProfileViewController: UIViewController, UITableViewDelegate, UITableV
             
             if var author2 = value?["Subscribers"] as? String {
                 
-                self.subs.text = author2
+                selectedsubs = author2
                 
             }
             
@@ -184,23 +181,29 @@ class EditProfileViewController: UIViewController, UITableViewDelegate, UITableV
 
             }
             
+            if var author2 = value?["Pitch"] as? String {
+                
+                selectedpitch = author2
+                
+            } else {
+                
+                selectedpitch = "This is where I'll be posting all my meal plans and workouts days before Instagram!"
+            }
+            
             if var profileUrl2 = value?["ProPic"] as? String {
                 // Create a storage reference from the URL
                 
                 
                 if profileUrl2 == "" {
                     
-                    self.lilthumbnail.alpha = 0
                     
                 } else {
                     
-                    self.lilthumbnail.alpha = 1
 
                     let url = URL(string: profileUrl2)
                     let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
                     selectedimage = UIImage(data: data!)!
                     
-                    self.lilthumbnail.image = selectedimage
                     
                 }
                 
@@ -254,7 +257,6 @@ class EditProfileViewController: UIViewController, UITableViewDelegate, UITableV
                         
                         videoids = videoids.sorted()
                         videoids = videoids.reversed()
-                        self.posts.text = String(videoids.count)
                         completed()
                         
                     }
@@ -387,29 +389,45 @@ class EditProfileViewController: UIViewController, UITableViewDelegate, UITableV
 
     @IBAction func tapShare(_ sender: Any) {
         
-        let text = "\(selectedname) on FAM"
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        var image = UIImage()
-        if thumbnails.count > 0 {
-            
-            image = thumbnails[videoids[0]]!
-
-        } else {
-            
-            image = UIImage(named: "FamLogo")!
-
-        }
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
         
-        let myWebsite = NSURL(string: selectedshareurl)
-        let shareAll : Array = [myWebsite] as [Any]
-        
-        
-        let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
-       
-        activityViewController.excludedActivityTypes = [UIActivityType.print, UIActivityType.postToWeibo, UIActivityType.addToReadingList, UIActivityType.postToVimeo, UIActivityType.saveToCameraRoll, UIActivityType.assignToContact]
-
-        activityViewController.popoverPresentationController?.sourceView = self.view
-        self.present(activityViewController, animated: true, completion: nil)
+        alert.addAction(UIAlertAction(title: "Share This Profile", style: .default, handler: { action in
+            switch action.style{
+            case .default:
+                
+                let text = "\(selectedname) on FAM"
+                
+                var image = UIImage()
+                if thumbnails.count > 0 {
+                    
+                    image = thumbnails[videoids[0]]!
+                    
+                } else {
+                    
+                    image = UIImage(named: "FamLogo")!
+                    
+                }
+                let myWebsite = NSURL(string: selectedshareurl)
+                let shareAll : Array = [myWebsite] as [Any]
+                
+                
+                let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
+                
+                activityViewController.excludedActivityTypes = [UIActivityType.print, UIActivityType.postToWeibo, UIActivityType.addToReadingList, UIActivityType.postToVimeo, UIActivityType.saveToCameraRoll, UIActivityType.assignToContact]
+                
+                activityViewController.popoverPresentationController?.sourceView = self.view
+                self.present(activityViewController, animated: true, completion: nil)
+            case .cancel:
+                print("cancel")
+                
+            case .destructive:
+                print("destructive")
+                
+                
+            }}))
+        present(alert, animated: true)
         
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -425,12 +443,19 @@ class EditProfileViewController: UIViewController, UITableViewDelegate, UITableV
         
 //            selectedthumbnailurl = thumbnailurls[videoids[indexPath.row-1]]!
 //            selectedvideo = videolinks[videoids[indexPath.row]]!
-            selectedvideoid = videoids[indexPath.row]
-            selectedtitle = videotitles[videoids[indexPath.row]]!
+        
+        if indexPath.row != 0 {
+            selectedvideoid = videoids[indexPath.row-1]
+            selectedtitle = videotitles[videoids[indexPath.row-1]]!
 //            selecteddaytitle = videodaytitles[videoids[indexPath.row]]!
-        selecteddate = videodates[videoids[indexPath.row]]!
+        selecteddate = videodates[videoids[indexPath.row-1]]!
 
             self.performSegue(withIdentifier: "EditToWatch", sender: self)
+            
+        } else {
+            
+            
+        }
 //        }
         
         
@@ -441,7 +466,7 @@ class EditProfileViewController: UIViewController, UITableViewDelegate, UITableV
         
         if thumbnails.count > 0 {
             
-            return thumbnails.count
+            return thumbnails.count+1
             
         } else {
             
@@ -449,6 +474,18 @@ class EditProfileViewController: UIViewController, UITableViewDelegate, UITableV
         }
         
         
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        if indexPath.row == 0 {
+            
+            return 200
+            
+        } else {
+            
+            return UITableViewAutomaticDimension
+        }
     }
     
     var videodaytitles = [String:String]()
@@ -466,22 +503,57 @@ class EditProfileViewController: UIViewController, UITableViewDelegate, UITableV
         //
         cell.selectionStyle = .none
         
-        if thumbnails.count > indexPath.row {
+        if thumbnails.count > indexPath.row-1{
+
+            if indexPath.row == 0 {
+                
+                cell.bigpic.alpha = 1
+                cell.postslabel.alpha = 1
+                cell.sublabel.alpha = 1
+                cell.pitch.alpha = 1
+                
+                cell.thumbnail.alpha = 0
+                
+                cell.titlelabel.alpha = 0
+                cell.timeago.alpha = 0
+                cell.name.alpha = 0
+                cell.lockimage.alpha = 0
+                cell.profilepic.alpha = 0
+                
+            } else {
+                
+                cell.bigpic.alpha = 0
+                cell.postslabel.alpha = 0
+                cell.sublabel.alpha = 0
+                cell.pitch.alpha = 0
+                cell.lockimage.alpha = 1
+                cell.profilepic.alpha = 1
+                cell.thumbnail.alpha = 1
+                
+                cell.titlelabel.alpha = 1
+                cell.timeago.alpha = 1
+                cell.name.alpha = 1
+                
+                cell.thumbnail.image = thumbnails[videoids[indexPath.row-1]]
+                
+                cell.titlelabel.text = videotitles[videoids[indexPath.row-1]]
+                cell.timeago.text = videodates[videoids[indexPath.row-1]]
+                cell.timeago.text = videodates[videoids[indexPath.row-1]]?.uppercased()
+            }
             
             tableView.alpha = 1
             errorlabel.alpha = 0
             activityIndicator.alpha = 0
-            cell.thumbnail.image = thumbnails[videoids[indexPath.row]]
-            
-            cell.titlelabel.text = videotitles[videoids[indexPath.row]]
-            cell.timeago.text = videodates[videoids[indexPath.row]]
-            cell.timeago.text = videodates[videoids[indexPath.row]]?.uppercased()
+    
             cell.timeago.addCharacterSpacing()
             cell.name.text = selectedname.uppercased()
             cell.name.addCharacterSpacing()
             cell.profilepic.image = myselectedimage
+            cell.bigpic.image = myselectedimage
+            cell.pitch.text = selectedpitch
             refreshControl.endRefreshing()
-            
+            cell.postslabel.text = String(videoids.count)
+
             //            cell.titlelabel.sizeToFit()
             //            cell.timeago.text = "\(videodaytitles[videoids[indexPath.row]]!)"
             
@@ -496,7 +568,8 @@ class EditProfileViewController: UIViewController, UITableViewDelegate, UITableV
         
         cell.lockimage.image = UIImage(named: "Play")
 
-        
+        cell.plabel.addCharacterSpacing()
+        cell.slabel.addCharacterSpacing()
         return cell
         
         //            cell.layer.borderWidth = 1.0

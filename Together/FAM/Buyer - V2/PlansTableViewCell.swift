@@ -37,7 +37,9 @@ class PlansTableViewCell: UITableViewCell {
     @IBOutlet weak var descriptionlabel: UILabel!
     @IBOutlet weak var thumbnailpreview: UIImageView!
     @IBOutlet weak var timelabel: UILabel!
+    @IBOutlet weak var plabel: UILabel!
     @IBOutlet weak var daylabel: UILabel!
+    @IBOutlet weak var slabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
 //        

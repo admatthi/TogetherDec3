@@ -473,13 +473,20 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
 
         } else {
             
+            if indexPath.row != 0 {
+
+                
 //            selectedvideo = videolinks[videoids[indexPath.row]]!
-            selectedvideoid = videoids[indexPath.row]
-            selecteddate = videodates[videoids[indexPath.row]]!
-            selectedtitle = videotitles[videoids[indexPath.row]]!
+            selectedvideoid = videoids[indexPath.row-1]
+            selecteddate = videodates[videoids[indexPath.row-1]]!
+            selectedtitle = videotitles[videoids[indexPath.row-1]]!
 //            selecteddaytitle = videodaytitles[videoids[indexPath.row]]!
             
             self.performSegue(withIdentifier: "VideoToWatch", sender: self)
+            } else {
+                
+                
+            }
         }
         
         
@@ -487,13 +494,14 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
  
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
     if thumbnails.count > 0 {
             
-        return thumbnails.count
+        return thumbnails.count+1
             
     } else {
             
-        return 1
+        return 0
     }
         
     
@@ -503,28 +511,47 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBAction func tapShare(_ sender: Any) {
         
-        let text = "\(selectedname) on FAM"
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        var image = UIImage()
-        if thumbnails.count > 0 {
-            
-            image = thumbnails[videoids[0]]!
-            
-        } else {
-            
-            image = UIImage(named: "FamLogo")!
-            
-        }
-        let myWebsite = NSURL(string: selectedshareurl)
-        let shareAll : Array = [myWebsite] as [Any]
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
         
+        alert.addAction(UIAlertAction(title: "Share This Profile", style: .default, handler: { action in
+            switch action.style{
+            case .default:
+                
+                let text = "\(selectedname) on FAM"
+                
+                var image = UIImage()
+                if thumbnails.count > 0 {
+                    
+                    image = thumbnails[videoids[0]]!
+                    
+                } else {
+                    
+                    image = UIImage(named: "FamLogo")!
+                    
+                }
+                let myWebsite = NSURL(string: selectedshareurl)
+                let shareAll : Array = [myWebsite] as [Any]
+                
+                
+                let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
+                
+                activityViewController.excludedActivityTypes = [UIActivityType.print, UIActivityType.postToWeibo, UIActivityType.addToReadingList, UIActivityType.postToVimeo, UIActivityType.saveToCameraRoll, UIActivityType.assignToContact]
+                
+                activityViewController.popoverPresentationController?.sourceView = self.view
+                self.present(activityViewController, animated: true, completion: nil)
+            case .cancel:
+                print("cancel")
+                
+            case .destructive:
+                print("destructive")
+                
+                
+            }}))
+        present(alert, animated: true)
         
-        let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
-        
-        activityViewController.excludedActivityTypes = [UIActivityType.print, UIActivityType.postToWeibo, UIActivityType.addToReadingList, UIActivityType.postToVimeo, UIActivityType.saveToCameraRoll, UIActivityType.assignToContact]
-        
-        activityViewController.popoverPresentationController?.sourceView = self.view
-        self.present(activityViewController, animated: true, completion: nil)
+
         
     }
     
@@ -541,7 +568,7 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
 //
         cell.selectionStyle = .none
         
-        if thumbnails.count > indexPath.row{
+        if thumbnails.count > indexPath.row-1{
             
             
             if indexPath.row == 0 {
@@ -572,17 +599,20 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
                 cell.titlelabel.alpha = 1
                 cell.timeago.alpha = 1
                 cell.name.alpha = 1
+                
+                cell.thumbnail.image = thumbnails[videoids[indexPath.row-1]]
+                
+                cell.titlelabel.text = videotitles[videoids[indexPath.row-1]]
+                cell.timeago.text = videodates[videoids[indexPath.row-1]]
+                cell.timeago.text = videodates[videoids[indexPath.row-1]]?.uppercased()
             }
             
             tableView.alpha = 1
             errorlabel.alpha = 0
             activityIndicator.alpha = 0
             show()
-            cell.thumbnail.image = thumbnails[videoids[indexPath.row]]
-                    
-            cell.titlelabel.text = videotitles[videoids[indexPath.row]]
-            cell.timeago.text = videodates[videoids[indexPath.row]]
-            cell.timeago.text = videodates[videoids[indexPath.row]]?.uppercased()
+            
+
             cell.timeago.addCharacterSpacing()
             cell.name.text = selectedname
             cell.name.addCharacterSpacing()
@@ -620,6 +650,16 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
         } else {
             
             
+            if indexPath.row == 0 {
+                
+                cell.lockimage.alpha = 0
+                
+            } else {
+                
+                cell.lockimage.alpha = 1
+
+            }
+
             cell.lockimage.image = UIImage(named: "Play")
             tapbuy.alpha = 0
             tapterms.alpha = 0
@@ -627,7 +667,9 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
             dahkness.alpha = 0
             
         }
-                
+        
+        cell.plabel.addCharacterSpacing()
+        cell.slabel.addCharacterSpacing()
             return cell
         
             //            cell.layer.borderWidth = 1.0
