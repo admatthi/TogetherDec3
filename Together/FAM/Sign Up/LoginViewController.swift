@@ -87,6 +87,8 @@ class LoginViewController: UIViewController, UITextFieldDelegate     {
                 
                 if author2 == "False" {
                     
+                    self.queryforids()
+
                     DispatchQueue.main.async {
                         
                         //                    purchased = true
@@ -98,6 +100,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate     {
                 } else {
                     
                     isInfluencer = true
+                    
                     
                     DispatchQueue.main.async {
                         
@@ -170,6 +173,37 @@ class LoginViewController: UIViewController, UITextFieldDelegate     {
         
         self.view.endEditing(true)
         
+    }
+    
+    func queryforids() {
+        
+        var functioncounter = 0
+        
+        ref?.child("Users").child(uid).child("Requested").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            var value = snapshot.value as? NSDictionary
+            
+            if let snapDict = snapshot.value as? [String:AnyObject] {
+                
+                for each in snapDict {
+                    
+                    let ids = each.key
+                    
+                    myprojectids.append(ids)
+                    
+                    functioncounter += 1
+                    
+                    if functioncounter == snapDict.count {
+                        
+                        
+                    }
+                    
+                    
+                }
+                
+            }
+            
+        })
     }
     @IBOutlet weak var tapcreate: UIButton!
     override func viewDidLoad() {

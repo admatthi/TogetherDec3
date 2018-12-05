@@ -38,6 +38,8 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
 
     @IBAction func tapShare(_ sender: Any) {
         
+        self.view.endEditing(true)
+        labelbackground.alpha = 0
         counter = 0
         tapcancel.alpha = 0
         tapshare.alpha = 0
@@ -255,6 +257,7 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     @IBOutlet weak var playerView: PlayerViewClass!
     
+    @IBOutlet weak var labelbackground: UILabel!
     @IBOutlet weak var tv2: UITextView!
     @IBOutlet weak var tv: UITextView!
     
@@ -294,8 +297,9 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
                 self.tapshare.alpha = 0
                 //        tapnew.alpha = 1
                 self.headerlabel.alpha = 1
-        self.playerView.player?.replaceCurrentItem(with: nil)
-                
+                            self.playerView.player?.replaceCurrentItem(with: nil)
+                self.view.endEditing(true)
+
             case .cancel:
                 print("cancel")
                 

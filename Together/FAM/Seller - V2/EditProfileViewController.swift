@@ -251,7 +251,9 @@ class EditProfileViewController: UIViewController, UITableViewDelegate, UITableV
                     
                     if functioncounter == snapDict.count {
                         
+                        
                         videoids = videoids.sorted()
+                        videoids = videoids.reversed()
                         self.posts.text = String(videoids.count)
                         completed()
                         
@@ -478,6 +480,7 @@ class EditProfileViewController: UIViewController, UITableViewDelegate, UITableV
             cell.name.text = selectedname.uppercased()
             cell.name.addCharacterSpacing()
             cell.profilepic.image = myselectedimage
+            refreshControl.endRefreshing()
             
             //            cell.titlelabel.sizeToFit()
             //            cell.timeago.text = "\(videodaytitles[videoids[indexPath.row]]!)"

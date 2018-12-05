@@ -47,7 +47,7 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
         }
         
-        ref?.child("Users").child(uid).child("Requested").child(selectedid).updateChildValues(["Title" : "x"])
+//        ref?.child("Users").child(uid).child("Requested").child(selectedid).updateChildValues(["Title" : "x"])
     }
     
     @IBOutlet weak var dahkness: UIImageView!
@@ -118,6 +118,9 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
         postlabel.addCharacterSpacing()
         lowercasename = selectedname
 
+        tapbuy.backgroundColor = UIColor(red:1.00, green:1.00, blue:1.00, alpha:0.25)
+        tapbuy.layer.borderColor = UIColor.white.cgColor
+        tapbuy.layer.borderWidth = 2.0
         tapbuy.layer.cornerRadius = 22.0
         tapbuy.layer.masksToBounds = true
         
@@ -555,7 +558,7 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
             cell.timeago.addCharacterSpacing()
             cell.name.text = selectedname
             cell.name.addCharacterSpacing()
-            cell.profilepic.image = myselectedimage
+            cell.profilepic.image = selectedimage
 //            cell.titlelabel.sizeToFit()
 //            cell.timeago.text = "\(videodaytitles[videoids[indexPath.row]]!)"
 
