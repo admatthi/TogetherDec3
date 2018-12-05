@@ -347,7 +347,7 @@ class VideoViewController: UIViewController, UITableViewDelegate, UITableViewDat
             
             if var author2 = value?["Price"] as? String {
                 
-                self.tapbuy.setTitle("Subscribe Now for $\(author2)/mo", for: .normal)
+                self.tapbuy.setTitle("Follow for $\(author2)/mo", for: .normal)
                 
                 self.taptermsbs.text = "Account will be charged for renewal within 24-hours prior to the end of the current period for $\(author2). Payment will be charged to iTunes Account at confirmation of purchase. Subscriptions may be managed by the user and auto-renewal may be turned off by going to the user's Account Settings after purchase. Any unused portion of a free trial period, if offered, will be forfeited when the user purchases a subscription to that publication, where applicable To learn more, check out our terms of use."
                 
