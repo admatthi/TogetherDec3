@@ -43,7 +43,7 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
         tapshare.alpha = 0
         tv3.alpha = 0
         playerView.alpha = 0
-        
+        tapplay.alpha = 0
         if tv3.text != "" {
             
             snaplabel = tv3.text
@@ -246,7 +246,7 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
 //        imagePickerController.mediaTypes = [kUTTypeMovie as String]
 //        present(imagePickerController, animated: true, completion: nil)
         
-        playerView.player?.play()
+        playerView.player?.pause()
         tapplay.alpha = 0
     }
     
@@ -277,12 +277,36 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
     */
     @IBAction func tapCancel(_ sender: Any) {
         
-        self.tabBarController?.tabBar.isHidden = false
-        tapcancel.alpha = 0
-        tapshare.alpha = 0
-//        tapnew.alpha = 1
-        headerlabel.alpha = 1
-        playerView.player?.replaceCurrentItem(with: nil)
+        let alert = UIAlertController(title: "Discard?", message: "Are you sure you'd like to discard this draft?", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+        
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+            switch action.style{
+            case .default:
+                print("default")
+                
+                self.tapplay.alpha = 0
+                
+                self.tv3.text = "Write a caption..."
+                self.tv3.textColor = UIColor.lightGray
+                self.tabBarController?.tabBar.isHidden = false
+                self.tapcancel.alpha = 0
+                self.tapshare.alpha = 0
+                //        tapnew.alpha = 1
+                self.headerlabel.alpha = 1
+        self.playerView.player?.replaceCurrentItem(with: nil)
+                
+            case .cancel:
+                print("cancel")
+                
+            case .destructive:
+                print("destructive")
+                
+                
+            }}))
+        self.present(alert, animated: true, completion: nil)
+        
+      
         
     }
     
@@ -358,7 +382,7 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if tv3.text.isEmpty {
-            tv3.text = "Your message here..."
+            tv3.text = "Write a caption..."
             tv3.textColor = UIColor.lightGray
         }
     }
@@ -386,7 +410,22 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         
     }
-    func showPicker() {
+    @IBAction func tapPlay(_ sender: Any) {
+        
+        tapplay.setImage(nil, for: .normal)
+        
+        if playerView.player?.isPlaying == true {
+            
+            playerView.player?.pause()
+            
+        } else {
+            
+            playerView.player?.play()
+
+        }
+        
+    }
+   func showPicker() {
         var config = YPImagePickerConfiguration()
 
         config.library.mediaType = .video
@@ -447,13 +486,15 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
                 
                 self.playerView.playerLayer.player = self.avPlayer
                 
-                self.playerView.player?.play()
-                self.headerlabel.alpha = 0
+                self.playerView.player?.pause()
+                self.headerlabel.alpha = 1
                 self.tapcancel.alpha = 0.5
                 self.tabBarController?.tabBar.isHidden = true
+                self.tapplay.alpha = 1
                 self.tapshare.alpha = 1
                 self.counter += 1
 
+                    
                 }
             }
         picker.dismiss(animated: true, completion: nil)
@@ -533,6 +574,8 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     override func viewDidLoad() {
         
+       playerView.layer.cornerRadius = 5.0
+        playerView.layer.masksToBounds = true
         self.tabBarController?.tabBar.isHidden = false
 
         NotificationCenter.default.addObserver(self,
@@ -555,6 +598,7 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
     
         self.activityIndicator.alpha = 0
         self.loadinglabel.alpha = 0
+        tapplay.alpha = 0
         tv3.text = "Write a caption..."
         tv3.textColor = mygray
 //        subtitle.text = "Subtitle..."

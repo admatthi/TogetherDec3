@@ -497,7 +497,8 @@ class WatchViewController: UIViewController {
         titlelabel.text = selectedtitle
 //        titlelabel.sizeToFit()
 
-        datelabel.text = selecteddate
+        datelabel.text = selecteddate.uppercased()
+        datelabel.addCharacterSpacing()
         textviewdics.removeAll()
         showcounter()
         vids.removeAll()

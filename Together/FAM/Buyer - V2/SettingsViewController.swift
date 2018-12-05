@@ -119,6 +119,14 @@ class SettingsViewController: UIViewController, UIImagePickerControllerDelegate,
     }
     override func viewDidAppear(_ animated: Bool) {
         
+        if isInfluencer {
+            
+            tappublish.alpha = 0
+            
+        } else {
+            tappublish.alpha = 1
+            
+        }
         HEADERLABEL.addCharacterSpacing()
         if Auth.auth().currentUser == nil {
             // Do smth if user is not logged in
