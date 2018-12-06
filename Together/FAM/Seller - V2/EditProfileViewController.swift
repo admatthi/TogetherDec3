@@ -286,7 +286,16 @@ class EditProfileViewController: UIViewController, UITableViewDelegate, UITableV
                 var value = snapshot.value as? NSDictionary
                 
                 if var author2 = value?["URL"] as? String {
-                    videolinks[each] = author2
+                    
+                    if author2 == "Image" {
+                        
+                        videolinks[each] = "-"
+
+                    } else {
+                        
+                        videolinks[each] = author2
+
+                    }
                     
                 
                 }
@@ -542,6 +551,11 @@ class EditProfileViewController: UIViewController, UITableViewDelegate, UITableV
                 cell.titlelabel.text = videotitles[videoids[indexPath.row-1]]
                 cell.timeago.text = videodates[videoids[indexPath.row-1]]
                 cell.timeago.text = videodates[videoids[indexPath.row-1]]?.uppercased()
+                
+                if videolinks[videoids[indexPath.row-1]] == "-" {
+                    
+                    cell.lockimage.alpha = 0
+                }
             }
             
             tableView.alpha = 1
@@ -569,10 +583,21 @@ class EditProfileViewController: UIViewController, UITableViewDelegate, UITableV
             
         }
         
-        cell.lockimage.image = UIImage(named: "Play")
+//        cell.lockimage.image = UIImage(named: "Play")
+        cell.lockimage.alpha = 0
 
         cell.plabel.addCharacterSpacing()
         cell.slabel.addCharacterSpacing()
+        
+        
+        if indexPath.row != 0 {
+        if videolinks[videoids[indexPath.row-1]] == "-" {
+            
+            cell.lockimage.alpha = 0
+        }
+            
+        }
+        
         return cell
         
         //            cell.layer.borderWidth = 1.0

@@ -74,6 +74,7 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         self.loadthumbnail()
         
+        if videoURL != nil {
         for each in vids {
             
 //        videoURL = vids[counter] as NSURL
@@ -155,7 +156,18 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
                 
             }
         }
+            
+        } else {
+            
+            
+          
+
+            
+            
+        }
     }
+    
+    var mystring2 = String()
     
     var strDate = String()
     func loadthumbnail() {
@@ -210,10 +222,10 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
                 
                 print(downloadURL)
                 
-                let mystring2 = downloadURL.absoluteString
+                self.mystring2 = downloadURL.absoluteString
                 
 
-            ref!.child("Influencers").child(uid).child("Plans").child(self.strDate).updateChildValues(["Thumbnail" : mystring2])
+                ref!.child("Influencers").child(uid).child("Plans").child(self.strDate).updateChildValues(["Thumbnail" : self.mystring2])
 
                     //                self.activityIndicator.alpha = 0
 //                self.activityIndicator.stopAnimating()
@@ -222,6 +234,18 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
                 self.nextViewNumber = 1
                 
                 if self.uploadcounter == self.vids.count {
+                    
+                    self.performSegue(withIdentifier: "SegueTo2nd", sender: self)
+
+                }
+                
+                if self.vids.count == 0 {
+                    
+                    var selectedindex = 1
+                    var storedvalue = String(selectedindex+1234)
+                    print(storedvalue)
+                    print(selectedindex)
+                    ref!.child("Influencers").child(uid).child("Plans").child(self.strDate).child(storedvalue).updateChildValues(["URL" : "Image"])
                     
                     self.performSegue(withIdentifier: "SegueTo2nd", sender: self)
 
@@ -432,7 +456,7 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
    func showPicker() {
         var config = YPImagePickerConfiguration()
 
-        config.library.mediaType = .video
+        config.library.mediaType = .photoAndVideo
 
         config.shouldSaveNewPicturesToAlbum = false
 
@@ -444,9 +468,9 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
 
         config.video.libraryTimeLimit = 500.0
         
-        config.showsCrop = .rectangle(ratio: (9/16))
+        config.showsCrop = .rectangle(ratio: (1/1))
         
-        config.wordings.libraryTitle = "Choose Video"
+        config.wordings.libraryTitle = "Choose Media"
 
         config.hidesBottomBar = false
         config.hidesStatusBar = false
@@ -467,7 +491,19 @@ class UploadViewController: UIViewController, UIImagePickerControllerDelegate, U
                 switch item {
                 case .photo(let photo):
                     
-                    print(photo)
+                    mythumbnail = photo.image
+                    
+                    let imageView = UIImageView(image: mythumbnail)
+                    imageView.frame = self.playerView.frame
+                    imageView.layer.cornerRadius = 5.0
+                    imageView.layer.masksToBounds = true
+                    self.view.addSubview(imageView)
+                    self.headerlabel.alpha = 1
+                    self.tapcancel.alpha = 0.5
+                    self.tabBarController?.tabBar.isHidden = true
+                    self.tapplay.alpha = 1
+                    self.tapshare.alpha = 1
+                    self.counter += 1
                     
                 case .video(let video):
                     

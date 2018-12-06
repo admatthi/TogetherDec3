@@ -502,7 +502,7 @@ class WatchViewController: UIViewController {
         textviewdics.removeAll()
         showcounter()
         vids.removeAll()
-        lilimage.setBackgroundImage(myselectedimage, for: .normal)
+        lilimage.setBackgroundImage(selectedimage, for: .normal)
         name.text = selectedname.uppercased()
         name.addCharacterSpacing()
 //        name.sizeToFit()

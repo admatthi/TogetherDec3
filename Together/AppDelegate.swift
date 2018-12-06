@@ -63,9 +63,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         isInfluencer = false
 
         ref = Database.database().reference()
-
-
-
 //
 
         if Auth.auth().currentUser == nil {
