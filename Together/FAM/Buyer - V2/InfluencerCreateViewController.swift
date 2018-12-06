@@ -139,6 +139,7 @@ class InfluencerCreateViewController: UIViewController, UITextFieldDelegate, UIT
         //        self.dismiss(animated: true, completion: {
         //
         //        })
+        
     }
     
     @IBOutlet weak var domaintf: UITextField!
