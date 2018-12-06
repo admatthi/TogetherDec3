@@ -57,38 +57,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Together/FAM/Buyer - V2/PurchaseViewController.swift"
-            timestampString = "565570499.325904"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
-            landmarkName = "tapBuy(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Together/FAM/Buyer - V2/PurchaseViewController.swift"
-            timestampString = "565570499.326015"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "tapBuy(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "Together/FAM/Sign Up/CreateAPlanViewController.swift"
             timestampString = "564964792.329358"
             startingColumnNumber = "9223372036854775807"
@@ -106,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Together/FAM/Buyer - V2/MyFamViewController.swift"
-            timestampString = "565728418.301844"
+            timestampString = "565754661.227587"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "68"
@@ -122,12 +90,12 @@
                   moduleName = "Together"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/alekmatthiessen/Downloads/TogetherDec3/Together/FAM/Buyer%20-%20V2/MyFamViewController.swift"
-                  timestampString = "565728418.758974"
+                  timestampString = "565754661.761331"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "69"
                   endingLineNumber = "69"
-                  offsetFromSymbolStart = "2488">
+                  offsetFromSymbolStart = "2586">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -137,14 +105,46 @@
                   moduleName = "Together"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/alekmatthiessen/Downloads/TogetherDec3/Together/FAM/Buyer%20-%20V2/MyFamViewController.swift"
-                  timestampString = "565728418.7607861"
+                  timestampString = "565754661.763935"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "71"
                   endingLineNumber = "71"
-                  offsetFromSymbolStart = "88">
+                  offsetFromSymbolStart = "69">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Together/FAM/Buyer - V2/WatchViewController.swift"
+            timestampString = "565739611.070334"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "506"
+            endingLineNumber = "506"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Together/FAM/Buyer - V2/WatchViewController.swift"
+            timestampString = "565739611.070443"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "505"
+            endingLineNumber = "505"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
