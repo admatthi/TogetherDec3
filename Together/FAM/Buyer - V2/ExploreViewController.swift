@@ -78,7 +78,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         toppics.removeAll()
         images.removeAll()
         
-        ref?.child("Influencers").queryOrdered(byChild: "Approved").queryEqual(toValue: "True").observeSingleEvent(of: .value, with: { (snapshot) in
+        ref?.child("Influencers2").queryOrdered(byChild: "Approved").queryEqual(toValue: "True").observeSingleEvent(of: .value, with: { (snapshot) in
             
             var value = snapshot.value as? NSDictionary
             
@@ -132,7 +132,7 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         var functioncounter = 0
         
         for each in projectids {
-        ref?.child("Influencers").child(each).observeSingleEvent(of: .value, with: { (snapshot) in
+        ref?.child("Influencers2").child(each).observeSingleEvent(of: .value, with: { (snapshot) in
                 
                 var value = snapshot.value as? NSDictionary
                 
@@ -145,10 +145,15 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
                     descriptions[each] = author2
                     
                 }
-                if var name = value?["Name"] as? String {
-                    names[each] = name
+                if var name = value?["Channel Name"] as? String {
+                    programnames[each] = name
                     
                 }
+            
+            if var name = value?["Name"] as? String {
+                names[each] = name
+                
+            }
                 
                 if var views = value?["Price"] as? String {
                     prices[each] = views
@@ -235,17 +240,18 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "People", for: indexPath) as! PeopleCollectionViewCell
         
+        
 //        cell.subscriber.tag = indexPath.row
         
-        cell.pricelabel.backgroundColor = UIColor(red:0.00, green:0.00, blue:0.00, alpha:0.5)
-        cell.pricelabel.layer.cornerRadius = 5.0
-        cell.pricelabel.layer.masksToBounds = true
+//        cell.pricelabel.backgroundColor = UIColor(red:0.00, green:0.00, blue:0.00, alpha:0.5)
+//        cell.pricelabel.layer.cornerRadius = 5.0
+//        cell.pricelabel.layer.masksToBounds = true
         cell.layer.cornerRadius = 10.0
         cell.layer.masksToBounds = true
         
         if images.count > indexPath.row && names.count > indexPath.row {
             
-            cell.pricelabel.text = "$\(prices[projectids[indexPath.row]]!)/mo"
+//            cell.pricelabel.text = "$\(prices[projectids[indexPath.row]]!)/mo"
 
             //            cell.layer.borderWidth = 1.0
             //            cell.layer.borderColor = UIColor.lightGray.cgColor
@@ -253,11 +259,18 @@ class ExploreViewController: UIViewController, UICollectionViewDelegate, UIColle
             
             cell.thumbnail.layer.cornerRadius = 10.0
             cell.thumbnail.layer.masksToBounds = true
-            cell.textlabel.text = names[projectids[indexPath.row]]
-     
+            cell.textlabel.text = programnames[projectids[indexPath.row]]
+            cell.authorname.text = names[projectids[indexPath.row]]?.uppercased()
+            cell.authorname.addCharacterSpacing()
+            
             cell.thumbnail.image = images[projectids[indexPath.row]]
+            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: "$199.99")
+            attributeString.addAttribute(NSAttributedStringKey.strikethroughStyle, value: 2, range: NSMakeRange(0, attributeString.length))
+            
+            cell.strikeprice.attributedText = attributeString
+            
 //            cell.subscribers.text = "\(subscribers[projectids[indexPath.row]]!) subscribers"
-                        cell.subscribers.text = "\(subscribers[projectids[indexPath.row]]!) subscribers"
+//                        cell.subscribers.text = "\(subscribers[projectids[indexPath.row]]!) subscribers"
 
         } else {
             
